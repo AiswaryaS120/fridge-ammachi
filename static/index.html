@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Fridge Whisperer Ammachi - Multi Page Single File</title>
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+Bhai&family=Fredericka+the+Great&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/static/style.css" />
+</head>
+<body>
+
+  <div class="top-bar">
+    <span class="title">Fridge Whisperer Ammachi</span>
+
+    <div class="top-bar-right">
+      <button class="exit-btn" title="Exit App">X 😢</button>
+
+      <select id="mood-selector" aria-label="Select Ammachi's mood" title="Select Ammachi's mood">
+        <option value="sarcastic" selected>Sarcastic</option>
+        <option value="sad">Sad</option>
+        <option value="happy">Happy</option>
+        <option value="angry">Angry</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Exit popup toast -->
+  <div id="exit-popup" class="popup-toast" style="display:none;">
+    <span class="popup-text">povuvaano makkale 😢</span>
+    <button id="exit-ok-btn" class="popup-btn" aria-label="Confirm exit">OK</button>
+  </div>
+
+  <!-- Falling veggies container (shared) -->
+  <div id="falling-veggies"></div>
+
+  <!-- Home Section -->
+  <main id="home-page" class="main-container">
+
+    <div class="ammachi-popup" role="region" aria-label="Ammachi speaking">
+      <img
+        src="/static/small.png"
+        alt="Ammachi"
+        class="ammachi-img"
+        draggable="false"
+      />
+      <div class="speech-bubble" role="dialog" aria-live="polite">
+        <!-- Initial dialogue text set by JS -->
+      </div>
+    </div>
+
+    <div class="button-row">
+      <button class="action-btn" id="enter-ingredient-btn">Enter Ingredient</button>
+      <button class="action-btn" id="upload-fridge-btn">Upload Fridge</button>
+    </div>
+
+  </main>
+
+  <!-- Upload Section - initially hidden -->
+  <main id="upload-page" class="main-container" style="display:none; flex-direction: column; gap: 30px;">
+
+    <div class="ammachi-popup" role="region" aria-label="Ammachi speaking on upload page">
+      <img
+        src="/static/small.png"
+        alt="Ammachi"
+        class="ammachi-img"
+        draggable="false"
+      />
+      <div class="speech-bubble" role="dialog" aria-live="polite">
+        Upload cheyyeda makale... Ammachi nokkate!
+      </div>
+    </div>
+
+    <label for="fridge-image-upload" class="upload-label">
+      Choose a fridge image to upload
+    </label>
+    <input
+      type="file"
+      id="fridge-image-upload"
+      accept="image/*"
+      style="cursor:pointer;"
+    />
+
+    <button class="action-btn" id="detect-ingredients-btn" style="align-self: center; max-width: 200px;">
+      Detect Ingredients
+    </button>
+
+    <button class="action-btn" id="back-home-btn" style="align-self: center; max-width: 200px;">
+      ← Back to Home
+    </button>
+
+    <!-- Results container -->
+    <div id="results-container" style="display: none; margin-top: 20px; max-width: 600px; align-self: center; background-color: white; padding: 20px; border-radius: 10px; box-shadow: 0 2px 10px rgba(0,0,0,0.1);">
+      <h3 style="color: #0D3B66; margin-bottom: 15px;">Detected Ingredients:</h3>
+      <div id="ingredients-list" style="margin-bottom: 20px;"></div>
+      <h3 style="color: #0D3B66; margin-bottom: 15px;">Recipe Suggestions:</h3>
+      <div id="recipes-display" style="white-space: pre-line; line-height: 1.6; background-color: #f7f8fa; padding: 15px; border-radius: 8px; border-left: 4px solid #0d6efd;"></div>
+    </div>
+
+  </main>
+
+  <script src="/static/fallingVeggies.js"></script>
+
+  <script>
+    const ammachiDialogue = document.querySelector('#home-page .speech-bubble');
+    const uploadDialogue = document.querySelector('#upload-page .speech-bubble');
+    const moodSelector = document.getElementById('mood-selector');
+    const exitBtn = document.querySelector('.exit-btn');
+    const exitPopup = document.getElementById('exit-popup');
+    const exitOkBtn = document.getElementById('exit-ok-btn');
+
+    const dialogues = {
+      sad: "Aiyo... enna sad feelings, makale...",
+      sarcastic: "Vaa da makale... ammachi aa...",
+      happy: "aaha makale sugalle! Ammachi super aa irukku!",
+      angry: "Entha da ninak vende shalyame! huhhhh karyam para!",
+    };
+
+    // Set initial home dialogue
+    ammachiDialogue.innerHTML = dialogues[moodSelector.value];
+    uploadDialogue.innerHTML = getUploadDialogue(moodSelector.value);
+
+    // Update dialogue on mood change (home page and upload page)
+    moodSelector.addEventListener('change', () => {
+      const mood = moodSelector.value;
+      ammachiDialogue.innerHTML = dialogues[mood] || dialogues.sarcastic;
+      uploadDialogue.innerHTML = getUploadDialogue(mood);
+    });
+
+    // Exit button click: show popup toast
+    exitBtn.addEventListener('click', () => {
+      exitPopup.style.display = 'flex';
+    });
+
+    // Exit popup OK button: close window
+    exitOkBtn.addEventListener('click', () => {
+      exitPopup.style.display = 'none';
+      // Try to close window (only works if opened by script)
+      window.close();
+
+      // fallback: redirect blank (some browsers don't allow window.close())
+      setTimeout(() => {
+        window.location.href = 'about:blank';
+      }, 100);
+    });
+
+    // Toggle to Upload page
+    document.getElementById('upload-fridge-btn').addEventListener('click', () => {
+      document.getElementById('home-page').style.display = 'none';
+      document.getElementById('upload-page').style.display = 'flex';
+
+      // Update upload page Ammachi text for current mood
+      uploadDialogue.innerHTML = getUploadDialogue(moodSelector.value);
+    });
+
+    // Back to Home button
+    document.getElementById('back-home-btn').addEventListener('click', () => {
+      document.getElementById('upload-page').style.display = 'none';
+      document.getElementById('home-page').style.display = 'flex';
+    });
+
+    // Detect Ingredients button functionality
+    document.getElementById('detect-ingredients-btn').addEventListener('click', async () => {
+      const fileInput = document.getElementById('fridge-image-upload');
+      const resultsContainer = document.getElementById('results-container');
+      const ingredientsList = document.getElementById('ingredients-list');
+      const recipesDisplay = document.getElementById('recipes-display');
+      const detectBtn = document.getElementById('detect-ingredients-btn');
+
+      if (!fileInput.files.length) {
+        alert('Please upload an image first!');
+        return;
+      }
+
+      // Disable button and show loading
+      detectBtn.disabled = true;
+      detectBtn.textContent = 'Detecting...';
+
+      try {
+        // Create FormData for file upload
+        const formData = new FormData();
+        formData.append('file', fileInput.files[0]);
+
+        // Make API call to backend
+        const response = await fetch('/upload', {
+          method: 'POST',
+          body: formData
+        });
+
+        const result = await response.json();
+
+        if (result.success !== false) {
+          // Display detected ingredients
+          ingredientsList.innerHTML = result.detected_items.map(item => 
+            `<span style="background-color: #1E5F9E; color: white; padding: 5px 10px; border-radius: 15px; margin: 2px; display: inline-block; font-size: 0.9em;">${item}</span>`
+          ).join(' ');
+
+          // Display recipes
+          recipesDisplay.innerHTML = result.recipes.replace(/\n/g, '<br>');
+
+          // Show results
+          resultsContainer.style.display = 'block';
+
+          // Update Ammachi dialogue for success
+          uploadDialogue.innerHTML = "Nalla ingredients kandu! Ippo oru nalla curry undakkam!";
+        } else {
+          // Show error message from Ammachi
+          uploadDialogue.innerHTML = result.message || "Onnum kandilla, try again!";
+        }
+
+      } catch (error) {
+        console.error('Error:', error);
+        uploadDialogue.innerHTML = "Error aayirunnu, try again!";
+      } finally {
+        // Re-enable button
+        detectBtn.disabled = false;
+        detectBtn.textContent = 'Detect Ingredients';
+      }
+    });
+
+    // Upload page dialogues depending on mood
+    function getUploadDialogue(mood) {
+      switch(mood) {
+        case 'sad':
+          return "Upload cheyy makale... Ammachi konjam sad aa";
+        case 'happy':
+          return "Upload cheyy makale....! nokate enthokeya ille nn!";
+        case 'angry':
+          return "vegam upload cheyyada! samayam povunu";
+        case 'sarcastic':
+        default:
+          return "Upload cheyy makale... ammachi nokate aa dharithryam pidicha fridge!";
+      }
+    }
+  </script>
+
+</body>
+</html>

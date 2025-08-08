@@ -1,0 +1,335 @@
+/* Reset */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+body, html {
+  height: 100%;
+  font-family: 'Baloo Bhai', cursive;
+  background: linear-gradient(135deg, #93c5fd 0%, #dbeafe 100%);
+  overflow-x: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Top Bar */
+.top-bar {
+  height: 70px;
+  background: linear-gradient(90deg, #0d3b66, #144a82);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 30px;
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  flex-shrink: 0;
+  z-index: 3000;
+}
+
+.top-bar-right {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.exit-btn {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 10px;
+  border-radius: 6px;
+  transition: background-color 0.3s ease;
+  user-select: none;
+}
+
+.exit-btn:hover {
+  background-color: #1e5f9e;
+}
+
+#mood-selector {
+  background: #1e5f9e;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  user-select: none;
+  box-shadow:
+    2px 2px 6px #14456f,
+    inset 1px 1px 3px #2e80c4;
+  transition: background-color 0.3s ease;
+}
+
+#mood-selector:hover,
+#mood-selector:focus {
+  background-color: #2e80c4;
+  outline: none;
+  box-shadow:
+    0 0 10px #72a9f9,
+    inset 1px 1px 4px #4b9bff;
+}
+
+/* Falling veggies container */
+#falling-veggies {
+  position: fixed;
+  top: 70px; /* below top bar */
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 70px);
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 10;
+  filter: blur(3px);
+  opacity: 0.18;
+}
+
+/* Veggie emojis style and animation */
+.veggie {
+  position: absolute;
+  animation-name: fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  animation-fill-mode: forwards;
+  user-select: none;
+  filter: drop-shadow(0 0 1px #0d3b66cc);
+  will-change: transform;
+  /* left, font-size, animation-duration & delay set inline by JS */
+}
+
+/* Falling animation with sway */
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) translateX(0);
+  }
+  25% {
+    transform: translateY(25vh) translateX(5vw);
+  }
+  50% {
+    transform: translateY(50vh) translateX(-3vw);
+  }
+  75% {
+    transform: translateY(75vh) translateX(4vw);
+  }
+  100% {
+    transform: translateY(110vh) translateX(0);
+  }
+}
+
+/* Main container */
+.main-container {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+  position: relative;
+  z-index: 100;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* Ammachi popup container */
+.ammachi-popup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px; /* reduced gap to bring bubble closer */
+  cursor: default;
+}
+
+/* Ammachi transparent image */
+.ammachi-img {
+  width: 280px;
+  height: auto;
+  user-select: none;
+  filter: drop-shadow(0 5px 5px rgba(13, 59, 102, 0.6));
+  transition: transform 0.3s ease;
+}
+.ammachi-img:hover {
+  transform: scale(1.08) rotate(-3deg);
+}
+
+/* Speech bubble below Ammachi */
+.speech-bubble {
+  background: #1e5f9e;
+  color: white;
+  padding: 18px 28px;
+  max-width: 320px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  font-family: 'Fredericka the Great', cursive;
+  border-radius: 28px;
+  box-shadow:
+    inset 3px 3px 7px #154777,
+    inset -3px -3px 7px #2483e5,
+    6px 6px 12px #14456f;
+  text-align: center;
+  letter-spacing: 0.06em;
+  user-select: none;
+  position: relative;
+  margin-top: -8px; /* lift speech bubble closer to image */
+}
+
+/* Bubble tail below the box */
+.speech-bubble::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -18px;
+  width: 0;
+  height: 0;
+  border-left: 18px solid transparent;
+  border-right: 18px solid transparent;
+  border-top: 20px solid #1e5f9e;
+  filter: drop-shadow(0 2px 1px #14456f);
+}
+
+/* Buttons fixed at bottom */
+.button-row {
+  position: fixed;
+  bottom: 28px;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  z-index: 3000;
+  padding: 0 20px;
+  pointer-events: auto;
+}
+
+.action-btn {
+  background: linear-gradient(145deg, #14456f, #1e5f9e);
+  border: none;
+  border-radius: 22px;
+  box-shadow:
+    5px 5px 12px #0a2c58,
+    -5px -5px 12px #2a6edc;
+  padding: 18px 42px;
+  font-size: 1.4rem;
+  color: #e3f1ff;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.35s ease;
+  text-shadow: 0 0 4px #c0d8ffbb;
+  letter-spacing: 0.06em;
+  user-select: none;
+  filter: drop-shadow(0 0 3px #2a6edcaa);
+}
+
+.action-btn:hover,
+.action-btn:focus {
+  outline: none;
+  filter: drop-shadow(0 0 12px #9fc6ffdd);
+  box-shadow:
+    0 0 18px #5b8ae3,
+    inset 0 0 10px #7ea3ef;
+  transform: scale(1.07) rotate(-1deg);
+}
+
+/* Modal for Upload Form - same styling as main app */
+.modal {
+  position: fixed;
+  z-index: 4000; /* Above all other content */
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+  display: none; /* Hidden by default */
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: linear-gradient(135deg, #93c5fd 0%, #dbeafe 100%);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+}
+
+.modal h1 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: #0d3b66;
+  font-family: 'Fredericka the Great', cursive;
+}
+
+.modal input[type="file"] {
+  display: block;
+  margin: 20px auto;
+  border: 2px dashed #1e5f9e;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #e3f1ff;
+  color: #1e5f9e;
+  cursor: pointer;
+}
+
+/* Popup toast style for exit */
+.popup-toast {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #609edc;
+  color: #e3f1ff;
+  font-family: 'Baloo Bhai', cursive;
+  padding: 12px 20px;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  z-index: 3100;
+}
+
+.popup-btn {
+  background: #1e5f9e;
+  color: white;
+  border: none;
+  padding: 5px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.popup-btn:hover {
+  background: #0d3b66;
+}
+
+/* Responsive */
+@media (max-width: 720px) {
+  .ammachi-popup {
+    gap: 12px;
+  }
+  .ammachi-img {
+    width: 220px;
+  }
+  .speech-bubble {
+    max-width: 280px;
+    font-size: 1.2rem;
+  }
+  .button-row {
+    gap: 30px;
+    padding-bottom: 14px;
+  }
+}
