@@ -1,8 +1,10 @@
 fastapi==0.115.6
 uvicorn[standard]==0.32.1
 python-multipart==0.0.20
-ultralytics==8.2.10
+ultralytics==8.0.196
 google-generativeai==0.8.3
 python-dotenv==1.0.1
 Pillow==11.0.0
+torch==2.0.1
+torchvision==0.15.2
 

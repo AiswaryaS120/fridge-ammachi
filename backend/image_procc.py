@@ -2,11 +2,18 @@
 # This script uses a pre-trained YOLOv8 model to detect grocery items.
 
 from ultralytics import YOLO
+import torch
 
 # Load a powerful, pre-trained model specialized in grocery detection.
 # This model will be downloaded automatically the first time it's used.
-# You can replace 'yolov8m-grocery-store.pt' with your own 'best.pt' if you train one.
-model = YOLO('yolov8m.pt') 
+try:
+    # Set torch hub directory for Render
+    torch.hub.set_dir('/tmp/torch_hub')
+    model = YOLO('yolov8m.pt')
+    print("✅ YOLO model loaded successfully")
+except Exception as e:
+    print(f"❌ Error loading YOLO model: {e}")
+    model = None 
 
 def detect_objects(image_path: str) -> list[str]:
     """
@@ -20,6 +27,12 @@ def detect_objects(image_path: str) -> list[str]:
     """
     try:
         print(f"Processing image: {image_path}")
+        
+        # Check if model loaded successfully
+        if model is None:
+            print("YOLO model failed to load, returning empty list")
+            return []
+        
         # Run inference on the image
         results = model(image_path)
 
