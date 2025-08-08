@@ -1,173 +1,105 @@
-# Fridge Whisperer Ammachi 🍳
+Project name:Fridge Whisperer Ammachi
 
-A fun recipe recommendation app that detects ingredients from fridge photos and suggests recipes using AI.
+Basic Details
+Team Name: ScriptForge
+Team Members
+Team Lead: Abijith V S - NSS Collge Of Engineering, Palakkad.
+Member 2: Aiswarya S - NSS Collge Of Engineering, Palakkad.
 
-## Features
+Project Description
+Fridge Whisperer Ammachi is an interactive web app that analyzes your fridge contents through image upload and suggests personalized recipes. Using AI-powered ingredient detection with YOLOv8 on the backend, it offers fun, mood-based dialogues from Ammachi, the virtual grandma. The frontend features a charming UI and dynamic speech bubbles that respond to user moods. This project combines computer vision, natural language, and playful UX to make cooking inspiration delightful and accessible.
 
-- 📸 Upload fridge photos to detect ingredients
-- 🤖 AI-powered recipe suggestions using Google Gemini
-- 🎭 Interactive Ammachi character with different moods
-- 🎨 Beautiful animated UI with falling vegetables
-- 🌐 Full-stack web application
+The Problem (that doesn't exist)
+Ever stood in front of your fridge confused about what to cook? Most apps expect you to know your ingredients perfectly—yeah right! So we made Fridge Whisperer Ammachi, a sassy grandma who tells you what to cook and keeps you entertained. Because sometimes, the real problem is just being hungry and clueless!
 
-## Local Development Setup
+The Solution (that nobody asked for)
+Introducing a grandma who actually listens to your fridge chaos and throws sarcastic, hilarious cooking ideas your way — because sometimes what you really need is a little sass with your snacks. Problem solved... or at least entertained!
 
-### Prerequisites
+Technical Details 
+Technologies/Components Used
+For Software:
+Frontend: HTML, CSS, JavaScript 
 
-- Python 3.8+
-- Node.js (optional, for local frontend serving)
-- Google Gemini API key
+Backend: Python with FastAPI framework
 
-### Backend Setup
+AI Model: Open-source YOLOv8 for fridge ingredient detection
 
-1. **Navigate to backend directory:**
-   ```bash
-   cd backend
-   ```
+Image Processing: Integration with YOLOv8 to detect fridge items from uploaded images
 
-2. **Install dependencies:**
-   ```bash
-   pip install -r requirements.txt
-   ```
+User Interaction: Mood selector affecting Ammachi’s dialogues and voice tone
 
-3. **Set up environment variables:**
-   ```bash
-   # Copy the template
-   cp env_template.txt .env
-   
-   # Edit .env and add your Gemini API key
-   # Get your API key from: https://makersuite.google.com/app/apikey
-   ```
+FastAPI – Lightweight Python web framework for backend APIs
 
-4. **Run the backend server:**
-   ```bash
-   python run.py
-   # or
-   python main.py
-   ```
+VS Code – Development
 
-   The backend will be available at `http://localhost:8000`
+Implementation
+For Software:
 
-### Frontend Setup
+Installation
+# 1. Clone the repository  
+git clone https://github.com/yourusername/fridge-whisperer-ammachi.git  
 
-1. **Navigate to frontend directory:**
-   ```bash
-   cd frontend
-   ```
+# 2. Navigate into the project folder  
+cd fridge-whisperer-ammachi  
 
-2. **Serve the frontend (choose one):**
-   
-   **Option A: Using Python (simple)**
-   ```bash
-   python -m http.server 3000
-   ```
-   
-   **Option B: Using Node.js**
-   ```bash
-   npx serve .
-   ```
-   
-   **Option C: Using Live Server (VS Code extension)**
-   - Install Live Server extension
-   - Right-click on `index.html` and select "Open with Live Server"
+# 3. Install dependencies  
+pip install -r requirements.txt  
 
-3. **Access the app:**
-   - Frontend: `http://localhost:3000` (or the port shown)
-   - Backend API: `http://localhost:8000`
 
-## Deployment
+Run
+# Start the backend server (FastAPI)
+uvicorn main:app --reload  
 
-### Frontend Deployment (Vercel)
+# Open the frontend in your browser
+open index.html   # or just double-click the file
 
-1. **Push your code to GitHub**
 
-2. **Connect to Vercel:**
-   - Go to [vercel.com](https://vercel.com)
-   - Import your GitHub repository
-   - Set the root directory to `frontend`
-   - Deploy
+Project Documentation
+For Software:
 
-3. **Update API URL:**
-   - After deployment, update the API URL in `frontend/index.html`
-   - Replace `https://your-render-backend-url.onrender.com` with your actual Render backend URL
+Screenshots 
+![fridge1](https://github.com/user-attachments/assets/b04c6c97-ea25-4b45-a82b-99e8baf9b7c4)
+The home page features Ammachi with mood-based witty dialogues in manglish, and buttons to enter ingredients or upload a fridge image—set against a lively falling veggies animation.
 
-### Backend Deployment (Render)
+![fridge4](https://github.com/user-attachments/assets/bc5528ec-db22-4cc1-bed7-b8ab088ec9a5)
+Users can select Ammachi’s mood from Sad, Happy, Sarcastic, or Angry to change her dialogue style dynamically.
 
-1. **Push your code to GitHub**
+![fridge2](https://github.com/user-attachments/assets/90105e12-7d1d-4e44-9203-51f31880abbb)
+The upload page lets users choose and submit a fridge image while Ammachi cheerfully guides them with mood-based messages.
 
-2. **Create a new Web Service on Render:**
-   - Go to [render.com](https://render.com)
-   - Connect your GitHub repository
-   - Set the following:
-     - **Name:** `fridge-whisperer-backend`
-     - **Root Directory:** `backend`
-     - **Runtime:** `Python 3`
-     - **Build Command:** `pip install -r requirements.txt`
-     - **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+![fridge3](https://github.com/user-attachments/assets/d09a3ef6-bad1-4d87-9653-f662ef49b46e)
+The recipe page displays personalized cooking suggestions based on detected fridge ingredients.
 
-3. **Add Environment Variables:**
-   - `GEMINI_API_KEY`: Your Google Gemini API key
 
-4. **Deploy**
+Diagrams
+![Workflow](https://github.com/user-attachments/assets/e5cee3ad-eb79-42c5-96ba-2cdd3a0b28a1)
+*Figure: Workflow/Architecture of Fridge Whisperer Ammachi*
 
-### Update Frontend with Backend URL
 
-After deploying the backend, update the frontend:
 
-1. **Get your Render backend URL** (e.g., `https://fridge-whisperer-backend.onrender.com`)
 
-2. **Update the API URL in `frontend/index.html`:**
-   ```javascript
-   const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
-     ? 'http://localhost:8000/api/upload'
-     : 'https://fridge-ammachi.onrender.com/api/upload';
-   ```
+Build Photos
 
-3. **Redeploy the frontend on Vercel**
+Build Process:
+![Build](Add photos of build process here) Explain the build steps
+We wrote the frontend in HTML, CSS, and JavaScript, and integrated the backend powered by Python and YOLOv8 using FastAPI.
+The build process involved coding, testing locally, and deploying the web application to a live environment for user interaction.
 
-## API Endpoints
+final photos:
+![fridge1](https://github.com/user-attachments/assets/b04c6c97-ea25-4b45-a82b-99e8baf9b7c4)
+![fridge2](https://github.com/user-attachments/assets/90105e12-7d1d-4e44-9203-51f31880abbb)
+![fridge3](https://github.com/user-attachments/assets/d09a3ef6-bad1-4d87-9653-f662ef49b46e)
+Users can manually enter ingredients or upload a fridge image, which is analyzed by a YOLOv8 backend to detect items.
+Ammachi then delivers funny, sarcastic Manglish comments through popups and speech bubbles.
+Finally, the app suggests recipes based on the detected ingredients for users to try.
 
-- `GET /` - Serve frontend
-- `GET /api` - API health check
-- `GET /health` - Health check for Render
-- `POST /api/upload` - Upload and process images
 
-## Environment Variables
+Project Demo
+Video
+[Add your demo video link here] Explain what the video demonstrates
 
-- `GEMINI_API_KEY` - Google Gemini API key (required)
-- `PORT` - Server port (optional, defaults to 8000)
+Team Contributions
+Abijith V S: Backend, Integration
+Aiswarya S: Frontend
 
-## Troubleshooting
-
-### Common Issues
-
-1. **"No module named 'ultralytics'"**
-   - Run: `pip install -r requirements.txt`
-
-2. **"GEMINI_API_KEY not found"**
-   - Create `.env` file in backend directory
-   - Add your API key: `GEMINI_API_KEY=your_key_here`
-
-3. **CORS errors**
-   - Check that your frontend URL is in the CORS allow_origins list
-   - Update the API URL in frontend to match your backend URL
-
-4. **Image upload fails**
-   - Check file size (max 10MB)
-   - Ensure file is an image format
-
-### Local Development Tips
-
-- Use `python run.py` for better error checking
-- Check console logs for detailed error messages
-- Test API endpoints using tools like Postman or curl
-
-## Tech Stack
-
-- **Backend:** FastAPI, Python, YOLOv8, Google Gemini AI
-- **Frontend:** HTML, CSS, JavaScript
-- **Deployment:** Vercel (frontend), Render (backend)
-
-## License
-
-MIT License
+Made with ❤ at TinkerHub Useless Projects
