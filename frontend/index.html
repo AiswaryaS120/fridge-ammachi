@@ -101,12 +101,14 @@
   <script src="fallingVeggies.js"></script>
 
   <script>
-    const ammachiDialogue = document.querySelector('#home-page .speech-bubble');
-    const uploadDialogue = document.querySelector('#upload-page .speech-bubble');
-    const moodSelector = document.getElementById('mood-selector');
-    const exitBtn = document.querySelector('.exit-btn');
-    const exitPopup = document.getElementById('exit-popup');
-    const exitOkBtn = document.getElementById('exit-ok-btn');
+    // Wait for DOM to be fully loaded
+    document.addEventListener('DOMContentLoaded', function() {
+      const ammachiDialogue = document.querySelector('#home-page .speech-bubble');
+      const uploadDialogue = document.querySelector('#upload-page .speech-bubble');
+      const moodSelector = document.getElementById('mood-selector');
+      const exitBtn = document.querySelector('.exit-btn');
+      const exitPopup = document.getElementById('exit-popup');
+      const exitOkBtn = document.getElementById('exit-ok-btn');
 
     const dialogues = {
       sad: "Aiyo... enna sad feelings, makale...",
@@ -114,6 +116,21 @@
       happy: "aaha makale sugalle! Ammachi super aa irukku!",
       angry: "Entha da ninak vende shalyame! huhhhh karyam para!",
     };
+
+    // Upload page dialogues depending on mood
+    function getUploadDialogue(mood) {
+      switch(mood) {
+        case 'sad':
+          return "Upload cheyy makale... Ammachi konjam sad aa";
+        case 'happy':
+          return "Upload cheyy makale....! nokate enthokeya ille nn!";
+        case 'angry':
+          return "vegam upload cheyyada! samayam povunu";
+        case 'sarcastic':
+        default:
+          return "Upload cheyy makale... ammachi nokate aa dharithryam pidicha fridge!";
+      }
+    }
 
     // Set initial home dialogue
     ammachiDialogue.innerHTML = dialogues[moodSelector.value];
@@ -221,21 +238,7 @@
         detectBtn.textContent = 'Detect Ingredients';
       }
     });
-
-    // Upload page dialogues depending on mood
-    function getUploadDialogue(mood) {
-      switch(mood) {
-        case 'sad':
-          return "Upload cheyy makale... Ammachi konjam sad aa";
-        case 'happy':
-          return "Upload cheyy makale....! nokate enthokeya ille nn!";
-        case 'angry':
-          return "vegam upload cheyyada! samayam povunu";
-        case 'sarcastic':
-        default:
-          return "Upload cheyy makale... ammachi nokate aa dharithryam pidicha fridge!";
-      }
-    }
+    });
   </script>
 
 </body>
