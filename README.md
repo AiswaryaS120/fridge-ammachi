@@ -1,21 +1,22 @@
-Project name:Fridge Whisperer Ammachi
+##Project name:
+Fridge Whisperer Ammachi
 
-Basic Details
+##Basic Details
 Team Name: ScriptForge
 Team Members
 Team Lead: Abijith V S - NSS Collge Of Engineering, Palakkad.
 Member 2: Aiswarya S - NSS Collge Of Engineering, Palakkad.
 
-Project Description
+##Project Description
 Fridge Whisperer Ammachi is an interactive web app that analyzes your fridge contents through image upload and suggests personalized recipes. Using AI-powered ingredient detection with YOLOv8 on the backend, it offers fun, mood-based dialogues from Ammachi, the virtual grandma. The frontend features a charming UI and dynamic speech bubbles that respond to user moods. This project combines computer vision, natural language, and playful UX to make cooking inspiration delightful and accessible.
 
-The Problem (that doesn't exist)
+##The Problem (that doesn't exist)
 Ever stood in front of your fridge confused about what to cook? Most apps expect you to know your ingredients perfectly—yeah right! So we made Fridge Whisperer Ammachi, a sassy grandma who tells you what to cook and keeps you entertained. Because sometimes, the real problem is just being hungry and clueless!
 
-The Solution (that nobody asked for)
+##The Solution (that nobody asked for)
 Introducing a grandma who actually listens to your fridge chaos and throws sarcastic, hilarious cooking ideas your way — because sometimes what you really need is a little sass with your snacks. Problem solved... or at least entertained!
 
-Technical Details 
+##Technical Details 
 Technologies/Components Used
 For Software:
 Frontend: HTML, CSS, JavaScript 
@@ -32,29 +33,28 @@ FastAPI – Lightweight Python web framework for backend APIs
 
 VS Code – Development
 
-Implementation
+##Implementation
 For Software:
-
 Installation
-# 1. Clone the repository  
+ 1. Clone the repository  
 git clone https://github.com/yourusername/fridge-whisperer-ammachi.git  
 
-# 2. Navigate into the project folder  
+2. Navigate into the project folder  
 cd fridge-whisperer-ammachi  
 
-# 3. Install dependencies  
+3. Install dependencies  
 pip install -r requirements.txt  
 
 
 Run
-# Start the backend server (FastAPI)
+Start the backend server (FastAPI)
 uvicorn main:app --reload  
 
-# Open the frontend in your browser
+Open the frontend in your browser
 open index.html   # or just double-click the file
 
 
-Project Documentation
+##Project Documentation
 For Software:
 
 Screenshots 
@@ -78,7 +78,7 @@ Diagrams
 
 
 
-Build Photos
+##Build Photos
 
 Build Process:
 ![Build](Add photos of build process here) Explain the build steps
@@ -94,11 +94,11 @@ Ammachi then delivers funny, sarcastic Manglish comments through popups and spee
 Finally, the app suggests recipes based on the detected ingredients for users to try.
 
 
-Project Demo
+##Project Demo
 Video
 [Add your demo video link here] Explain what the video demonstrates
 
-Team Contributions
+##Team Contributions
 Abijith V S: Backend, Integration
 Aiswarya S: Frontend
 
