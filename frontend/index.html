@@ -183,7 +183,7 @@
         // Get API URL based on environment
         const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
           ? 'http://localhost:8000/api/upload'
-          : 'https://your-render-backend-url.onrender.com/api/upload';
+          : 'https://fridge-ammachi.onrender.com/api/upload';
         
         // Make API call to backend
         const response = await fetch(apiUrl, {

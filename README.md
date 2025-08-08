@@ -120,7 +120,7 @@ After deploying the backend, update the frontend:
    ```javascript
    const apiUrl = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' 
      ? 'http://localhost:8000/api/upload'
-     : 'https://your-actual-render-url.onrender.com/api/upload';
+     : 'https://fridge-ammachi.onrender.com/api/upload';
    ```
 
 3. **Redeploy the frontend on Vercel**
