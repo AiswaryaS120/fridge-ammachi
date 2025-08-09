@@ -1,26 +1,35 @@
-**Fridge Whisperer Ammachi🎯**
+<img width="3188" height="1202" alt="image" src="https://github.com/user-attachments/assets/9d9cdd0e-1496-45ed-af78-f87e24db7a2c" />
 
-**Basic Details**
-Team Name: ScriptForge
-Team Members
-Team Lead: Abijith V S - NSS College Of Engineering, Palakkad
-Member 2: Aiswarya S - NSS College Of Engineering, Palakkad.
+# **Fridge Whisperer Ammachi🎯**
+
+## **Basic Details**
+
+### Team Name: ScriptForge
+
+### Team Members
+
+- Team Lead: Abijith V S - NSS College Of Engineering, Palakkad
+
+- Member 2: Aiswarya S - NSS College Of Engineering, Palakkad.
  
-**Project Description**
+### **Project Description**
 
 Fridge Whisperer Ammachi is an interactive web app that analyzes your fridge contents through image upload and suggests personalized recipes. Using AI-powered ingredient detection with YOLOv8 on the backend, it offers fun, mood-based dialogues from Ammachi, the virtual grandma. The frontend features a charming UI and dynamic speech bubbles that respond to user moods. This project combines computer vision, natural language, and playful UX to make cooking inspiration delightful and accessible.
 
 
-**The Problem (that doesn't exist)**
+### **The Problem (that doesn't exist)**
+
 Ever stood in front of your fridge confused about what to cook? Most apps expect you to know your ingredients perfectly—yeah right! So we made Fridge Whisperer Ammachi, a sassy grandma who tells you what to cook and keeps you entertained. Because sometimes, the real problem is just being hungry and clueless!.
 
 
-**The Solution (that nobody asked for)**
+### **The Solution (that nobody asked for)**
+
 Introducing a grandma who actually listens to your fridge chaos and throws sarcastic, hilarious cooking ideas your way — because sometimes what you really need is a little sass with your snacks. Problem solved... or at least entertained!.
 
 
-**Technical Details**
-Technologies/Components Used
+## **Technical Details**
+
+### Technologies/Components Used
 For Software:
 Frontend: HTML, CSS, JavaScript 
 
@@ -36,10 +45,10 @@ FastAPI – Lightweight Python web framework for backend APIs
 
 VS Code – Development
 
-**Implementation**
+### **Implementation**
 For Software:
 
-Installation
+# Installation
 1. Clone the repository  
 git clone https://github.com/yourusername/fridge-whisperer-ammachi.git  
 
@@ -49,7 +58,7 @@ cd fridge-whisperer-ammachi
 3. Install dependencies  
 pip install -r requirements.txt  
 
-Run
+# Run
 Start the backend server (FastAPI)
 uvicorn main:app --reload  
 
@@ -57,10 +66,10 @@ Open the frontend in your browser
 open index.html   
 or just double-click the file
 
-**Project Documentation**
+### **Project Documentation**
 For Software:
 
-Screenshots:
+# Screenshots:
 ![fridge1](https://github.com/user-attachments/assets/b04c6c97-ea25-4b45-a82b-99e8baf9b7c4)
 The home page features Ammachi with mood-based witty dialogues in manglish, and buttons to enter ingredients or upload a fridge image—set against a lively falling veggies animation.
 
@@ -73,12 +82,12 @@ The upload page lets users choose and submit a fridge image while Ammachi cheerf
 ![fridge3](https://github.com/user-attachments/assets/d09a3ef6-bad1-4d87-9653-f662ef49b46e)
 The recipe page displays personalized cooking suggestions based on detected fridge ingredients.
 
-**Diagrams**
+# **Diagrams**
 ![Workflow](https://github.com/user-attachments/assets/e5cee3ad-eb79-42c5-96ba-2cdd3a0b28a1)
 *Figure: Workflow/Architecture of Fridge Whisperer Ammachi*
 
 
-**Build Photos**
+# **Build Photos**
 Build Process:
 ![build](https://github.com/user-attachments/assets/bb332ee5-cb8d-4546-bfc2-dac0e1a6bd4f)
 We wrote the frontend in HTML, CSS, and JavaScript, and integrated the backend powered by Python and YOLOv8 using FastAPI.
@@ -93,13 +102,13 @@ Ammachi then delivers funny, sarcastic Manglish comments through popups and spee
 Finally, the app suggests recipes based on the detected ingredients for users to try.
 
 
-**Project Demo**
-Video
+### **Project Demo**
+# Video
 https://drive.google.com/drive/folders/1RChwuu-CwysTeyWG-Fp-t4q9yFiVHJGW?usp=drive_link
 
 
-Team Contributions
-Abijith V S: Backend,Integration.
-Aiswarya S: Frontend.
+## **Team Contributions**
+- Abijith V S: Backend,Integration.
+- Aiswarya S: Frontend.
 
 Made with ❤️ at TinkerHub Useless Projects
