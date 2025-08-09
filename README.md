@@ -79,6 +79,7 @@ Diagrams
 
 Build Photos
 Build Process:
+![build](https://github.com/user-attachments/assets/bb332ee5-cb8d-4546-bfc2-dac0e1a6bd4f)
 We wrote the frontend in HTML, CSS, and JavaScript, and integrated the backend powered by Python and YOLOv8 using FastAPI.
 The build process involved coding, testing locally, and deploying the web application to a live environment for user interaction.
 
@@ -93,7 +94,7 @@ Finally, the app suggests recipes based on the detected ingredients for users to
 
 Project Demo
 Video
-[Add your demo video link here] Explain what the video demonstrates
+https://drive.google.com/drive/folders/1RChwuu-CwysTeyWG-Fp-t4q9yFiVHJGW?usp=drive_link
 
 
 Team Contributions
