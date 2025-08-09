@@ -1,110 +1,104 @@
-# Fridge Whisperer Ammachi 🍳
+Fridge Whisperer Ammachi🎯
+Basic Details
+Team Name: ScriptForge
+Team Members
+Team Lead: Abijith V S - NSS College Of Engineering, Palakkad
+Member 2: Aiswarya S - NSS College Of Engineering, Palakkad.
 
-A playful AI-powered recipe generator that uses computer vision to detect ingredients in your fridge and suggests personalized recipes. Features "Ammachi" (grandmother in Malayalam) as a friendly cooking assistant.
+Project Description:
 
-## Features
+Fridge Whisperer Ammachi is an interactive web app that analyzes your fridge contents through image upload and suggests personalized recipes. Using AI-powered ingredient detection with YOLOv8 on the backend, it offers fun, mood-based dialogues from Ammachi, the virtual grandma. The frontend features a charming UI and dynamic speech bubbles that respond to user moods. This project combines computer vision, natural language, and playful UX to make cooking inspiration delightful and accessible.
 
-- 📸 **Image Upload**: Upload photos of your fridge contents
-- 🔍 **Object Detection**: Uses YOLOv8 to identify food items
-- 🤖 **AI Recipe Generation**: Google Gemini API generates personalized recipes
-- 🎨 **Playful UI**: Ammachi character with Manglish (Malayalam-English) dialogue
-- 📱 **Responsive Design**: Works on desktop and mobile devices
 
-## Setup Instructions
+The Problem (that doesn't exist)
+Ever stood in front of your fridge confused about what to cook? Most apps expect you to know your ingredients perfectly—yeah right! So we made Fridge Whisperer Ammachi, a sassy grandma who tells you what to cook and keeps you entertained. Because sometimes, the real problem is just being hungry and clueless!.
 
-### 1. Install Dependencies
 
-```bash
-pip install -r requirements.txt
-```
+The Solution (that nobody asked for)
+Introducing a grandma who actually listens to your fridge chaos and throws sarcastic, hilarious cooking ideas your way — because sometimes what you really need is a little sass with your snacks. Problem solved... or at least entertained!.
 
-### 2. Environment Configuration
 
-Create a `.env` file in the project root:
+Technical Details
+Technologies/Components Used
+For Software:
+Frontend: HTML, CSS, JavaScript 
 
-```bash
-# Google Gemini API Key
-# Get your API key from: https://makersuite.google.com/app/apikey
-GEMINI_API_KEY=your_gemini_api_key_here
-```
+Backend: Python with FastAPI framework
 
-### 3. Download YOLO Model
+AI Model: Open-source YOLOv8 for fridge ingredient detection
 
-The YOLOv8 model will be automatically downloaded on first run, or you can manually download it:
+Image Processing: Integration with YOLOv8 to detect fridge items from uploaded images
 
-```bash
-# The model will be saved as yolov8n.pt
-```
+User Interaction: Mood selector affecting Ammachi’s dialogues and voice tone
 
-### 4. Run the Application
+FastAPI – Lightweight Python web framework for backend APIs
 
-```bash
-python main.py
-```
+VS Code – Development
 
-The application will be available at `http://localhost:8000`
+Implementation
+For Software:
 
-## Usage
+Installation
+1. Clone the repository  
+git clone https://github.com/yourusername/fridge-whisperer-ammachi.git  
 
-1. **Home Page**: Visit the main page to see Ammachi
-2. **Upload Image**: Click "Upload Fridge" to upload a photo of your fridge
-3. **Detect Ingredients**: The AI will identify food items in your image
-4. **Get Recipes**: Ammachi will suggest 3 personalized recipes using your ingredients
+2. Navigate into the project folder  
+cd fridge-whisperer-ammachi  
 
-## Project Structure
+3. Install dependencies  
+pip install -r requirements.txt  
 
-```
-fridge_ammachi/
-├── main.py              # FastAPI application
-├── image-pros.py        # YOLOv8 object detection
-├── response.py          # Google Gemini API integration
-├── requirements.txt     # Python dependencies
-├── static/             # Frontend assets
-│   ├── index.html      # Main landing page
-│   ├── upload.html     # Image upload interface
-│   ├── style.css       # Main styling
-│   ├── upload-style.css # Upload page styling
-│   └── ammachi image.jpg # Ammachi character image
-└── yolov8n.pt          # YOLOv8 model file
-```
+Run
+Start the backend server (FastAPI)
+uvicorn main:app --reload  
 
-## API Endpoints
+Open the frontend in your browser
+open index.html   
+or just double-click the file
 
-- `GET /`: Serve the main application
-- `POST /upload`: Upload and process fridge images
-- `GET /health`: Health check endpoint
+Project Documentation
+For Software:
 
-## Technical Stack
+Screenshots:
+![fridge1](https://github.com/user-attachments/assets/b04c6c97-ea25-4b45-a82b-99e8baf9b7c4)
+The home page features Ammachi with mood-based witty dialogues in manglish, and buttons to enter ingredients or upload a fridge image—set against a lively falling veggies animation.
 
-- **Backend**: FastAPI, Python
-- **Computer Vision**: YOLOv8 (Ultralytics)
-- **AI**: Google Gemini API
-- **Frontend**: HTML5, CSS3, Vanilla JavaScript
-- **Styling**: Custom CSS with pastel blue theme
+![fridge4](https://github.com/user-attachments/assets/bc5528ec-db22-4cc1-bed7-b8ab088ec9a5)
+Users can select Ammachi’s mood from Sad, Happy, Sarcastic, or Angry to change her dialogue style dynamically.
 
-## Troubleshooting
+![fridge2](https://github.com/user-attachments/assets/90105e12-7d1d-4e44-9203-51f31880abbb)
+The upload page lets users choose and submit a fridge image while Ammachi cheerfully guides them with mood-based messages.
 
-### Common Issues
+![fridge3](https://github.com/user-attachments/assets/d09a3ef6-bad1-4d87-9653-f662ef49b46e)
+The recipe page displays personalized cooking suggestions based on detected fridge ingredients.
 
-1. **Import Errors**: Make sure all dependencies are installed
-2. **API Key Issues**: Verify your Gemini API key is correct
-3. **Model Download**: Ensure internet connection for YOLO model download
-4. **Image Upload**: Check file format (supports jpg, jpeg, png, gif, bmp, webp)
+Diagrams
+![Workflow](https://github.com/user-attachments/assets/e5cee3ad-eb79-42c5-96ba-2cdd3a0b28a1)
+*Figure: Workflow/Architecture of Fridge Whisperer Ammachi*
 
-### Error Messages
 
-- "No items detected": Try with a clearer image of your fridge
-- "API Error": Check your Gemini API key and internet connection
-- "File type error": Ensure you're uploading an image file
+Build Photos
+Build Process:
+![build](https://github.com/user-attachments/assets/bb332ee5-cb8d-4546-bfc2-dac0e1a6bd4f)
+We wrote the frontend in HTML, CSS, and JavaScript, and integrated the backend powered by Python and YOLOv8 using FastAPI.
+The build process involved coding, testing locally, and deploying the web application to a live environment for user interaction.
 
-## Contributing
+final photos:
+![fridge1](https://github.com/user-attachments/assets/b04c6c97-ea25-4b45-a82b-99e8baf9b7c4)
+![fridge2](https://github.com/user-attachments/assets/90105e12-7d1d-4e44-9203-51f31880abbb)
+![fridge3](https://github.com/user-attachments/assets/d09a3ef6-bad1-4d87-9653-f662ef49b46e)
+Users can manually enter ingredients or upload a fridge image, which is analyzed by a YOLOv8 backend to detect items.
+Ammachi then delivers funny, sarcastic Manglish comments through popups and speech bubbles.
+Finally, the app suggests recipes based on the detected ingredients for users to try.
 
-Feel free to contribute by:
-- Adding new Ammachi dialogue lines
-- Improving the UI/UX
-- Enhancing recipe generation prompts
-- Adding support for more image formats
 
-## License
+Project Demo
+Video
+https://drive.google.com/drive/folders/1RChwuu-CwysTeyWG-Fp-t4q9yFiVHJGW?usp=drive_link
 
-This project is open source and available under the MIT License.
+
+Team Contributions
+Abijith V S: Backend,Integration.
+Aiswarya S: Frontend.
+
+Made with ❤️ at TinkerHub Useless Projects
