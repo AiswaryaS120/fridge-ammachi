@@ -8,7 +8,7 @@
 
 ### Team Members
 
-- Team Lead: Abijith V S - NSS College Of Engineering, Palakkad
+- Team Lead: Abijith V S - NSS College Of Engineering,  Palakkad
 
 - Member 2: Aiswarya S - NSS College Of Engineering, Palakkad.
  
