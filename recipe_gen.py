@@ -1,63 +1,56 @@
 # recipe_gen.py
-# Handles communication with the Google Gemini API to generate recipes.
+# Handles recipe generation using a local GPT-2 model (no API key required).
 
 import os
-import google.generativeai as genai
-from dotenv import load_dotenv
+from transformers import pipeline
 
-# Load the API key from the .env file
-load_dotenv()
+# Initialize the text generation pipeline with GPT-2
+generator = pipeline('text-generation', model='gpt2')
 
 def get_recipes(items: list[str]) -> str:
     """
-    Generates recipe suggestions from a list of ingredients using the Gemini API.
+    Generates recipe suggestions from a list of ingredients using a local GPT-2 model.
 
     Args:
         items (list[str]): A list of detected ingredients.
 
     Returns:
-        str: A formatted string containing recipe suggestions, or an error message.
+        str: A formatted string containing recipe suggestions.
     """
-    api_key = os.getenv("GEMINI_API_KEY")
-    if not api_key:
-        return "Error: Google Gemini API key not found. Please set it in your .env file."
+    if not items:
+        return "No ingredients detected to generate recipes."
+
+    # Create a comma-separated string of items for the prompt
+    item_string = ", ".join(items)
+
+    # Structured prompt for the model
+    prompt = f"""
+You are a helpful kitchen assistant. Based on these fridge ingredients: {item_string}, suggest 3 simple recipes. Assume basic staples like oil, salt, pepper, water, rice, flour are available.
+
+Format each recipe exactly like this:
+
+Recipe 1: Curd Rice - A simple and cooling dish
+Steps: 1. Cook rice and let it cool. 2. Mix curd with rice. 3. Add salt and serve.
+
+Recipe 2: Milk Shake - A refreshing drink
+Steps: 1. Blend milk with ice. 2. Add sugar if needed. 3. Serve chilled.
+
+Recipe 3: Juice Salad - A healthy mix
+Steps: 1. Mix juice with vegetables. 2. Add salt and lemon. 3. Serve fresh.
+"""
 
     try:
-        genai.configure(api_key=api_key)
-        model = genai.GenerativeModel('gemini-1.5-flash')
+        print("Generating recipes with local GPT-2 model...")
+        # Generate text using GPT-2
+        outputs = generator(prompt, max_length=500, num_return_sequences=1, temperature=0.7, do_sample=True)
+        generated_text = outputs[0]['generated_text']
+        print("Recipes generated successfully.")
 
-        # Create a comma-separated string of items for the prompt
-        item_string = ", ".join(items)
-
-        # A structured prompt to get reliable, well-foarmatted output from the AI
-        prompt = f"""
-        You are a helpful and creative kitchen assistant.
-        Based on the following list of ingredients found in a fridge, please suggest the top 3 best recipes.
-
-        Ingredients available: {item_string}
-
-        For each recipe, please provide the following information in this exact format:
-
-        **Recipe Title:** [Name of the Recipe]
-        **Description:** [A short, appealing one-line description of the dish.]
-        **Method:**
-        1. [First simple step]
-        2. [Second simple step]
-        3. [And so on...]
-
-        ---
-
-        Please ensure the recipes primarily use the ingredients provided. You can assume basic pantry staples like oil, salt, pepper, and water are available. Do not suggest recipes with many unavailable ingredients.
-        """
-
-        print("Sending prompt to Gemini API...")
-        response = model.generate_content(prompt)
-        print("Received response from Gemini API.")
-        
-        return response.text
+        # Extract the generated part after the prompt
+        recipes = generated_text[len(prompt):].strip()
+        return recipes if recipes else "Could not generate recipes. Try with different ingredients."
 
     except Exception as e:
-        print(f"An error occurred while calling the Gemini API: {e}")
-        print(f"Error type: {type(e).__name__}")
-        return f"Error: Could not retrieve recipes at this time. The service might be unavailable or the API key is invalid. Details: {str(e)}"
+        print(f"Error generating recipes: {e}")
+        return f"Error: Could not generate recipes. Details: {str(e)}"
 
