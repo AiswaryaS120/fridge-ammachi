@@ -1,43 +1,68 @@
-# image_procc.py
-# This script uses a pre-trained YOLOv8 model to detect grocery items.
-
 from ultralytics import YOLO
+import cv2
+import os
+from classifier.predict import classify_image
 
-# Load a powerful, pre-trained model specialized in grocery detection.
-# This model will be downloaded automatically the first time it's used.
-# You can replace 'yolov8m-grocery-store.pt' with your own 'best.pt' if you train one.
-model = YOLO('yolov8m.pt') 
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+
+YOLO_MODEL = os.path.join(BASE_DIR, "yolov8m.pt")
+CROP_DIR = os.path.join(BASE_DIR, "temp_uploads")
+CONF_THRESHOLD = 0.6
+
+UNWANTED_CLASSES = {
+    "person", "refrigerator", "oven", "microwave",
+    "sink", "table", "chair", "bowl", "cup", "glass",
+    "box", "carton", "container", "package",
+    "plastic", "metal", "wood", "cardboard", "potted plant"
+}
+
+# Classes that should be classified by the custom classifier (bottles and cans)
+CLASSIFY_CLASSES = {"bottle", "can"}
+
+os.makedirs(CROP_DIR, exist_ok=True)
+
+yolo = YOLO(YOLO_MODEL)
+
 
 def detect_objects(image_path: str) -> list[str]:
-    """
-    Detects objects in an image using a pre-trained YOLOv8 model.
+    image = cv2.imread(image_path)
+    results = yolo(image_path)
 
-    Args:
-        image_path (str): The path to the uploaded image file.
+    groceries = set()
+    crop_id = 0
 
-    Returns:
-        list[str]: A list of unique detected object names.
-    """
-    try:
-        print(f"Processing image: {image_path}")
-        # Run inference on the image
-        results = model(image_path)
+    for r in results:
+        if r.boxes is None:
+            continue
 
-        detected_items = set()  # Use a set to automatically handle duplicates
-        unwanted_items = {"bottle","person","can", "carton", "box", "refrigerator", "container", "package", "plastic", "bowl", "glass", "metal", "cardboard", "wood", "potted plant"}
+        for box, cls_id in zip(r.boxes.xyxy, r.boxes.cls):
+            yolo_label = yolo.names[int(cls_id)].lower()
 
-        # Process results
-        for r in results:
-            for c in r.boxes.cls:
-                item_name = model.names[int(c)]
-                # Only add items that are not in unwanted_items
-                if item_name.lower() not in unwanted_items:
-                    detected_items.add(item_name)
-        
-        print(f"Detected items: {list(detected_items)}")
-        return list(detected_items)
+            if yolo_label in UNWANTED_CLASSES:
+                continue
 
-    except Exception as e:
-        print(f"An error occurred during object detection: {e}")
-        return []
+            # If it's a bottle or can, classify it with the custom classifier
+            if yolo_label in CLASSIFY_CLASSES:
+                x1, y1, x2, y2 = map(int, box)
+                crop = image[y1:y2, x1:x2]
 
+                if crop.size == 0:
+                    continue
+
+                crop_path = os.path.join(CROP_DIR, f"crop_{crop_id}.jpg")
+                cv2.imwrite(crop_path, crop)
+                crop_id += 1
+
+                label, conf = classify_image(crop_path)
+                print(f"YOLO: {yolo_label} → CLASSIFIER: {label} ({conf:.2f})")
+
+                if conf >= CONF_THRESHOLD:
+                    groceries.add(label)
+
+                os.remove(crop_path)
+            else:
+                # For other items (like vegetables), use YOLO label directly
+                print(f"YOLO: {yolo_label} → DIRECT: {yolo_label}")
+                groceries.add(yolo_label)
+
+    return list(groceries)
